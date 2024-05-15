@@ -15,7 +15,6 @@
         android:layout_height="match_parent"
         android:textSize="30dp"
         android:visibility="gone"
-        android:textColor="@color/black"
         android:text="Sin pokemons guardado" />
 
     <androidx.recyclerview.widget.RecyclerView

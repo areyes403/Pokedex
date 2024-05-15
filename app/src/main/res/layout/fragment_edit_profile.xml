@@ -30,7 +30,6 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="44dp"
         android:text="Name:"
-        android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -42,7 +41,6 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="76dp"
         android:text="Password:"
-        android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -54,7 +52,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="72dp"
         android:text="E-mail:"
-        android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -66,7 +63,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="72dp"
         android:text="Last name:"
-        android:textColor="@color/black"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />

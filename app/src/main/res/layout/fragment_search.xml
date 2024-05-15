@@ -24,7 +24,6 @@
         android:text="Search"
         android:layout_margin="20dp"
         android:backgroundTint="#c6ff00"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +58,6 @@
         app:cardElevation="10dp"
         android:visibility="gone"
         app:cardUseCompatPadding="true"
-        android:backgroundTint="@color/mostaza"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_info">
@@ -76,7 +74,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/black"
                 android:textSize="25dp" />
 
             <TextView
@@ -84,7 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/black"
                 android:textSize="25dp" />
 
             <TextView
@@ -92,7 +88,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/black"
                 android:textSize="25dp" />
 
             <TextView
@@ -100,7 +95,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/black"
                 android:textSize="25dp" />
 
             <TextView
@@ -108,7 +102,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:textColor="@color/black"
                 android:textSize="25dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -150,7 +143,6 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_back"
         android:textAlignment="center"
-        app:backgroundTint="@color/azulPrimario"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

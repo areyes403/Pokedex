@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         viewModel= ViewModelProvider(this,loginViewModelFactory)[LoginViewModel::class.java]
 
         observers()
+
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
@@ -72,8 +73,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loginUser(){
-        val user=binding.etxtLoggingUser.text.toString()
-        val pass=binding.etxtLoggingPass.text.toString()
+        val user=binding.tfEmail.editText?.text.toString()
+        val pass=binding.tfPassword.editText?.text.toString()
 
         if(!TextUtils.isEmpty(user)&&!TextUtils.isEmpty(pass)){
             viewModel.login(data =

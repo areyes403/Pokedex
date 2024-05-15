@@ -42,7 +42,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:text="aaa"
-                        android:textColor="@color/black"
                         android:textSize="25dp" />
 
                     <TextView
@@ -51,7 +50,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:text="aaa"
-                        android:textColor="@color/black"
                         android:textSize="25dp" />
 
                     <TextView
@@ -60,7 +58,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:text="aaa"
-                        android:textColor="@color/black"
                         android:textSize="25dp" />
                 </LinearLayout>
 
