@@ -8,20 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import mx.edu.itm.link.pokedex.R
 import mx.edu.itm.link.pokedex.ViewModels.SavePokemonsViewModel
-import mx.edu.itm.link.pokedex.ViewModels.ShowPokemonsViewModel
-import mx.edu.itm.link.pokedex.database.Pokemon
+import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.databinding.FragmentSearchBinding
 import org.json.JSONObject
 
@@ -71,7 +67,7 @@ class SearchFragment : Fragment() {
                 Log.d("uid","$uid")
                 //print(uid)
                 try{
-                    val poke=Pokemon(
+                    val poke= Pokemon(
                         binding.txtIdPokemon.text.toString().toInt(),
                         uid,
                         binding.txtName.text.toString(),

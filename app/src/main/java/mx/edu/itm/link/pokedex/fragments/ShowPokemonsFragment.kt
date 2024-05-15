@@ -14,7 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import mx.edu.itm.link.pokedex.ViewModels.ShowPokemonsAdapter
 import mx.edu.itm.link.pokedex.ViewModels.ShowPokemonsViewModel
-import mx.edu.itm.link.pokedex.database.Pokemon
+import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.databinding.FragmentShowPokemonsBinding
 import mx.edu.itm.link.pokedex.interfaces.PokemonListCallback
 

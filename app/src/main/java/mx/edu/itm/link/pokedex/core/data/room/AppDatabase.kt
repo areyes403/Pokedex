@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.database
+package mx.edu.itm.link.pokedex.core.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -15,5 +15,5 @@ const val DATABASE_NAME="@myappname.sqlite"
 
 abstract class AppDatabase : RoomDatabase(){
 
-    abstract fun pokemonDao():PokemonDao
+    abstract fun pokemonDao(): PokemonDao
 }

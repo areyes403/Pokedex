@@ -1,13 +1,13 @@
-package mx.edu.itm.link.pokedex.database
+package mx.edu.itm.link.pokedex.core.data.room
 
 import android.content.Context
 import androidx.room.Room
 
 class DatabaseManager {
-    lateinit var database:AppDatabase
+    lateinit var database: AppDatabase
 
     companion object{
-        val instance=DatabaseManager()
+        val instance= DatabaseManager()
     }
 
     fun initializeDb(context: Context){
@@ -15,7 +15,7 @@ class DatabaseManager {
     }
 
     private fun createDb(context: Context){
-        database= Room.databaseBuilder(context,AppDatabase::class.java, DATABASE_NAME)
+        database= Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration().build()
     }
 }

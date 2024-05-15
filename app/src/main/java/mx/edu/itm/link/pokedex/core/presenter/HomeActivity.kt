@@ -1,9 +1,8 @@
-package mx.edu.itm.link.pokedex
+package mx.edu.itm.link.pokedex.core.presenter
 
 import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import mx.edu.itm.link.pokedex.database.DatabaseManager
 import mx.edu.itm.link.pokedex.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {

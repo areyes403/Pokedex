@@ -1,9 +1,13 @@
-package mx.edu.itm.link.pokedex.database
+package mx.edu.itm.link.pokedex.pokemon.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import mx.edu.itm.link.pokedex.core.data.room.PokemonDao
+import mx.edu.itm.link.pokedex.core.data.room.toPokemon
+import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
+import mx.edu.itm.link.pokedex.pokemon.domain.model.toEntity
 
 class MyAppDataSource (private val pokemonDao: PokemonDao){
 
@@ -24,11 +28,11 @@ class MyAppDataSource (private val pokemonDao: PokemonDao){
     }*/
 
 
-    suspend fun delete(pokemon:Pokemon) = withContext(Dispatchers.IO){
+    suspend fun delete(pokemon: Pokemon) = withContext(Dispatchers.IO){
         pokemonDao.delete(pokemon.toEntity())
     }
 
-    suspend fun save(pokemon:Pokemon) = withContext(Dispatchers.IO){
+    suspend fun save(pokemon: Pokemon) = withContext(Dispatchers.IO){
         pokemonDao.save(pokemon.toEntity())
     }
 

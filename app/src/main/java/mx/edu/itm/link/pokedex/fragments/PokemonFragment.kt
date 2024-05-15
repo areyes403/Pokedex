@@ -11,10 +11,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
-import mx.edu.itm.link.pokedex.R
-import mx.edu.itm.link.pokedex.database.Pokemon
 import mx.edu.itm.link.pokedex.databinding.FragmentPokemonBinding
-import mx.edu.itm.link.pokedex.interfaces.PokemonListCallback
 import org.json.JSONObject
 
 

@@ -1,7 +1,8 @@
-package mx.edu.itm.link.pokedex.database
+package mx.edu.itm.link.pokedex.core.data.room
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 
 @Entity(tableName = TABLE_POKEMONS)
 data class PokemonEntity(

@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.database
+package mx.edu.itm.link.pokedex.core.data.room
 
 import androidx.room.*
 
@@ -6,7 +6,7 @@ import androidx.room.*
 interface PokemonDao {
 
     @Delete
-    fun delete(pokemon:PokemonEntity)
+    fun delete(pokemon: PokemonEntity)
 
     @Insert(onConflict=OnConflictStrategy.REPLACE)
     fun save(pokemon: PokemonEntity)
@@ -15,7 +15,7 @@ interface PokemonDao {
     fun getPokemonsFromDatabase():List<PokemonEntity>
 
     @Query("SELECT*FROM $TABLE_POKEMONS WHERE idPokemon= :query")
-    fun getPokemonByid(query:String):PokemonEntity
+    fun getPokemonByid(query:String): PokemonEntity
 
 
     //Trabajando con los usuarios
