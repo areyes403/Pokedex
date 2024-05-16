@@ -4,9 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.ProgressBar
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import mx.edu.itm.link.pokedex.auth.domain.model.Credentials
+import mx.edu.itm.link.pokedex.auth.domain.usecase.SignUp
+import mx.edu.itm.link.pokedex.auth.presenter.login.viewmodel.LoginViewModel
+import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModel
+import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModelFactory
+import mx.edu.itm.link.pokedex.core.MyApplication
 import mx.edu.itm.link.pokedex.core.domain.model.User
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.util.snackBar
@@ -16,8 +21,8 @@ import mx.edu.itm.link.pokedex.databinding.ActivityRegisterBinding
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private lateinit var progressBar: ProgressBar
-    private val viewModel:RegisterViewModel by viewModels()
+
+    private lateinit var viewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +30,14 @@ class RegisterActivity : AppCompatActivity() {
         val view=binding.root
         setContentView(view)
 
-        progressBar= ProgressBar(this)
+        val repo=(application as MyApplication).authRepo
+
+        val registerUseCase=SignUp(repo)
+
+        val viewmodelFactory=RegisterViewModelFactory(registerUseCase)
+
+        viewModel= ViewModelProvider(this,viewmodelFactory)[RegisterViewModel::class.java]
+
 
         observers()
     }
@@ -41,7 +53,8 @@ class RegisterActivity : AppCompatActivity() {
                     this.finish()
                 }
                 is ResponseStatus.Error->{
-                    snackBar(response.error)
+                    val view:View=binding.root
+                    snackBar(response.error,view)
                 }
             }
 
@@ -53,10 +66,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createNewuser(){
-        val name=binding.etxtNombreRegistrandose.text.toString()
-        val lastname=binding.etxtApellidosRegistrandose.text.toString()
-        val email=binding.etxtCorreoRegistrandose.text.toString()
-        val pass=binding.etxtPasswordRegistrandose.text.toString()
+        val name=binding.tfName.editText?.text.toString()
+        val lastname=binding.tfSurnames.editText?.text.toString()
+        val email=binding.tfEmail.editText?.text.toString()
+        val pass=binding.tfPassword.editText?.text.toString()
         val rnds = (0..10).random()
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(lastname) &&!TextUtils.isEmpty(email) &&!TextUtils.isEmpty(pass)){

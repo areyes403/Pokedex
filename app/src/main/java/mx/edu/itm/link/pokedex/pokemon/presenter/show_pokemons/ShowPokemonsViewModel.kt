@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.ViewModels
+package mx.edu.itm.link.pokedex.pokemon.presenter.show_pokemons
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

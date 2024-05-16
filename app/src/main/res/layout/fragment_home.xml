@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
 
 
-    tools:context=".fragments.HomeFragment">
+    tools:context=".user.presenter.home.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

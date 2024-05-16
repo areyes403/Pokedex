@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.fragments
+package mx.edu.itm.link.pokedex.pokemon.presenter.show_pokemons
 
 import android.os.Bundle
 import android.util.Log
@@ -6,23 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import mx.edu.itm.link.pokedex.ViewModels.ShowPokemonsAdapter
-import mx.edu.itm.link.pokedex.ViewModels.ShowPokemonsViewModel
-import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.databinding.FragmentShowPokemonsBinding
-import mx.edu.itm.link.pokedex.interfaces.PokemonListCallback
 
 
-class ShowPokemonsFragment : Fragment(),PokemonListCallback {
+class ShowPokemonsFragment : Fragment() {
 
     private lateinit var binding:FragmentShowPokemonsBinding
-    private val showViewModel:ShowPokemonsViewModel by viewModels()
+    private val showViewModel: ShowPokemonsViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -42,7 +36,7 @@ class ShowPokemonsFragment : Fragment(),PokemonListCallback {
             showViewModel.getPokemonsUser(uid)
             showViewModel.savedPokemons.observe(viewLifecycleOwner,{pokemonlist->
                 if(!pokemonlist.isNullOrEmpty()){
-                    val adapter= ShowPokemonsAdapter(pokemonlist,this,view.context)
+                    val adapter= ShowPokemonsAdapter(pokemonlist)
                     binding.rvPokemons.adapter=adapter
                     for (savedpokemon in pokemonlist){
                         Log.d("obtainedpokemons","from pokemon: ${savedpokemon.idPokemon}")
@@ -53,12 +47,8 @@ class ShowPokemonsFragment : Fragment(),PokemonListCallback {
                 }
             })
         }
-
-
-
-
     }
-
+/*
     override fun onClick(pokemon: Pokemon) {
         /*
         val numero=showViewModel.getCountPokemons(pokemon.idUser)
@@ -79,5 +69,7 @@ class ShowPokemonsFragment : Fragment(),PokemonListCallback {
         }
 
     }
+
+ */
 
 }

@@ -4,7 +4,7 @@ import mx.edu.itm.link.pokedex.pokemon.data.remote.dto.PokemonDto
 import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 
 fun PokemonDto.toPokemon():Pokemon = Pokemon(
-    idPokemon = id,
+    idPokemon = 0,
     namepokemon = name,
     idUser = "",
     hp = "",

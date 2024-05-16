@@ -13,8 +13,8 @@ import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 class LoginViewModel(
     private val singInUseCase:SignIn
 ):ViewModel() {
-    private val _login=MutableLiveData<ResponseStatus<String>>()
-    val login:LiveData<ResponseStatus<String>> get() = _login
+    private val _login=MutableLiveData<ResponseStatus<Unit>>()
+    val login:LiveData<ResponseStatus<Unit>> get() = _login
 
     fun login(data:Credentials)=viewModelScope.launch(Dispatchers.IO){
         _login.postValue(singInUseCase.invoke(cred = data))

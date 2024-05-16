@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
@@ -16,6 +17,7 @@ import mx.edu.itm.link.pokedex.auth.presenter.login.viewmodel.LoginViewModel
 import mx.edu.itm.link.pokedex.auth.presenter.login.viewmodel.LoginViewModelFactory
 import mx.edu.itm.link.pokedex.core.presenter.HomeActivity
 import mx.edu.itm.link.pokedex.auth.presenter.register.RegisterActivity
+import mx.edu.itm.link.pokedex.core.MyApplication
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.util.snackBar
 import mx.edu.itm.link.pokedex.databinding.ActivityMainBinding
@@ -25,14 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
     private lateinit var viewModel: LoginViewModel
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repository=AuthRepositoryImp(Firebase.auth,Firebase.firestore)
+        val repository=(application as MyApplication).authRepo
 
         val signInUseCase=SignIn(repository)
 
@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
+        this.
 
         binding.btnRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -65,7 +66,8 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 is ResponseStatus.Error->{
-                    snackBar(msg = response.error)
+                    val view:View=binding.root
+                    snackBar(msg = response.error,view)
                 }
             }
 

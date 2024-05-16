@@ -1,40 +1,34 @@
-package mx.edu.itm.link.pokedex.fragments
+package mx.edu.itm.link.pokedex.user.presenter.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import mx.edu.itm.link.pokedex.R
 import mx.edu.itm.link.pokedex.databinding.FragmentHomeBinding
-import org.json.JSONObject
 
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding:FragmentHomeBinding
-    private lateinit var dbReference: DatabaseReference
-    private lateinit var database: FirebaseDatabase
+    //private lateinit var dbReference: DatabaseReference
+    //private lateinit var database: FirebaseDatabase
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         binding= FragmentHomeBinding.inflate(layoutInflater)
-        val view=binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController=Navigation.findNavController(view)
 
+        /*
         //usuario
         val user = Firebase.auth.currentUser
         if (user != null) {
@@ -58,6 +52,8 @@ class HomeFragment : Fragment() {
         } else {
             Log.d("logged","Usuario null")
         }
+
+         */
 
         binding.btnSearchPokemon.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_searchFragment)

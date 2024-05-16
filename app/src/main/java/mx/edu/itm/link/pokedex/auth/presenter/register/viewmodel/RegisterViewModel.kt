@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.auth.presenter.register
+package mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

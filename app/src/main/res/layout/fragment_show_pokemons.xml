@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.ShowPokemonsFragment"
+    tools:context=".pokemon.presenter.show_pokemons.ShowPokemonsFragment"
     android:orientation="horizontal">
 
     <!-- TODO: Update blank fragment layout -->

@@ -5,14 +5,22 @@ import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
-fun Activity.snackBar(msg:String?){
+fun Activity.snackBar(msg:String?,view: View){
     if (msg.isNullOrBlank()){
-        Snackbar.make(View(this),"Error desconocido",Snackbar.LENGTH_LONG).show()
+        Snackbar.make(view,"Error desconocido",Snackbar.LENGTH_LONG).show()
     }else{
-        Snackbar.make(View(this),msg,Snackbar.LENGTH_LONG).show()
+        Snackbar.make(view,msg,Snackbar.LENGTH_LONG).show()
     }
 }
 
 fun Activity.toast(msg: String){
     Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+}
+
+fun View.show(){
+    visibility=View.VISIBLE
+}
+
+fun View.hide(){
+    visibility=View.GONE
 }

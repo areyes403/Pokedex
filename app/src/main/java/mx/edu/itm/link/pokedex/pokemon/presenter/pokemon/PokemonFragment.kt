@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.fragments
+package mx.edu.itm.link.pokedex.pokemon.presenter.pokemon
 
 import android.os.Bundle
 import android.util.Log

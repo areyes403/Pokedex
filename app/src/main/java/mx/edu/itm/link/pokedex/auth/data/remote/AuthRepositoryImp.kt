@@ -22,6 +22,8 @@ class AuthRepositoryImp (
             .await()
             .user?.uid
 
+        user.id= uid.toString()
+
         firestore.collection(FirestoreCollections.USER)
             .document(uid.toString())
             .set(user)
@@ -32,9 +34,9 @@ class AuthRepositoryImp (
         ResponseStatus.Error(e.localizedMessage)
     }
 
-    override suspend fun signIn(credential: Credentials): ResponseStatus<String> = try {
+    override suspend fun signIn(credential: Credentials): ResponseStatus<Unit> = try {
         auth.signInWithEmailAndPassword(credential.email,credential.password).await()
-        ResponseStatus.Success("")
+        ResponseStatus.Success(Unit)
 
     }catch (e:Exception){
         ResponseStatus.Error(e.localizedMessage)
