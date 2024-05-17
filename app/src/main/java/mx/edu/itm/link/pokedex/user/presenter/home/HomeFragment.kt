@@ -6,90 +6,93 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import mx.edu.itm.link.pokedex.R
+import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
+import mx.edu.itm.link.pokedex.core.presenter.MyApplication
+import mx.edu.itm.link.pokedex.core.util.snackBar
 import mx.edu.itm.link.pokedex.databinding.FragmentHomeBinding
-
+import mx.edu.itm.link.pokedex.user.data.local.LocalUserRepositoryImp
+import mx.edu.itm.link.pokedex.user.domain.usecase.GetLocalUser
+import mx.edu.itm.link.pokedex.user.domain.usecase.ObserveUser
+import mx.edu.itm.link.pokedex.user.presenter.home.viewmodel.HomeViewModel
+import mx.edu.itm.link.pokedex.user.presenter.home.viewmodel.HomeViewModelFactory
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding:FragmentHomeBinding
-    //private lateinit var dbReference: DatabaseReference
-    //private lateinit var database: FirebaseDatabase
+    private lateinit var viewModel:HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        // Inflate the layout for this fragment
+
         binding= FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navController=Navigation.findNavController(view)
 
-        /*
-        //usuario
-        val user = Firebase.auth.currentUser
-        if (user != null) {
-            //val user = Firebase.auth.currentUser
-            database= FirebaseDatabase.getInstance()
-            dbReference=database.reference.child("users")
-            dbReference.child(user!!.uid).get().addOnSuccessListener {
-                Log.i("firebase", "Got value ${it.value}")
-                val json=JSONObject(it.value.toString())
-                //json.getString("name")
-                Log.i("firebase", "Desde el name ${json.getString("name")}")
-                binding.txtName.text=json.getString("name")
-                binding.txtUser.text=json.getString("email")
-                //binding.txtLevel.text=json.getString("level")
-                binding.txtLvl.text=json.getString("level")
-                lvl(json.getString("level"))
-            }.addOnFailureListener {
+        val localRepo=LocalUserRepositoryImp()
+        val userRepo=(requireActivity().application as MyApplication).userRepo
+
+        val observeuser=ObserveUser(userRepo)
+        val getLocalUserCase=GetLocalUser(localRepo)
+
+        val viewModelFactory=HomeViewModelFactory(getLocalUserCase,observeuser)
+
+        viewModel=ViewModelProvider(this,viewModelFactory)[HomeViewModel::class.java]
+
+        observers()
+
+        binding.apply {
+            btnSearchPokemon.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+            }
+            btnviewPokemons.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_showPokemonsFragment)
+            }
+            btnEditProfile.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_editProfileFragment)
+            }
+            btnLogOut.setOnClickListener {
 
             }
-
-        } else {
-            Log.d("logged","Usuario null")
-        }
-
-         */
-
-        binding.btnSearchPokemon.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_searchFragment)
-        }
-        binding.btnviewPokemons.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_showPokemonsFragment)
-        }
-        binding.btnEditProfile.setOnClickListener {
-            navController.navigate(R.id.action_homeFragment_to_editProfileFragment)
         }
 
 
-
-        binding.btnLogOut.setOnClickListener {
-            activity?.onBackPressed()
-        }
-        try {
-            val bundle=Bundle()
-            val num=bundle.getString("name")
-            print("El numero obtenido es: $num")
-        }catch (e:ExceptionInInitializerError){
-            print(e)
-        }
 
     }
 
-    private fun lvl(nivel: String){
-        val lvl=nivel
-        //barra
-        binding.circularProgressBar.apply {
-            var float1 : Float = lvl.toFloat();
-            setProgressWithAnimation(float1*10,1000)
-            progressBarColorStart = Color.GREEN
-            progressBarColorEnd = Color.BLUE
-            progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
-        }
+    private fun observers() {
+        viewModel.user.onEach { response->
+            when(response){
+                is ResponseStatus.Loading->{
 
+                }
+
+                is ResponseStatus.Success->{
+
+                    binding.txtName.text=response.data.name
+                    binding.txtLvl.text=response.data.level.toString()
+                    binding.circularProgressBar.apply {
+                        val float1 = response.data.level.toFloat();
+                        setProgressWithAnimation(float1*10,1000)
+                        progressBarColorStart = Color.GREEN
+                        progressBarColorEnd = Color.BLUE
+                        progressBarColorDirection = CircularProgressBar.GradientDirection.TOP_TO_BOTTOM
+                    }
+
+                }
+
+                is ResponseStatus.Error->{
+                    snackBar(response.error,view)
+                }
+            }
+        }.launchIn(lifecycleScope)
     }
 }

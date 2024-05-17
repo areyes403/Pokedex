@@ -3,6 +3,7 @@ package mx.edu.itm.link.pokedex.core.util
 import android.app.Activity
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
 fun Activity.snackBar(msg:String?,view: View){
@@ -10,6 +11,16 @@ fun Activity.snackBar(msg:String?,view: View){
         Snackbar.make(view,"Error desconocido",Snackbar.LENGTH_LONG).show()
     }else{
         Snackbar.make(view,msg,Snackbar.LENGTH_LONG).show()
+    }
+}
+
+fun Fragment.snackBar(msg:String?,view: View?){
+    view?.let {
+        if (msg.isNullOrBlank()){
+            Snackbar.make(it,"Error desconocido",Snackbar.LENGTH_LONG).show()
+        }else{
+            Snackbar.make(it,msg,Snackbar.LENGTH_LONG).show()
+        }
     }
 }
 

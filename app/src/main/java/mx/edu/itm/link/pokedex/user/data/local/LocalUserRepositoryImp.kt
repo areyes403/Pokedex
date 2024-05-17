@@ -4,7 +4,7 @@ import mx.edu.itm.link.pokedex.core.data.room.DatabaseManager
 import mx.edu.itm.link.pokedex.core.domain.model.User
 import mx.edu.itm.link.pokedex.core.util.toLocalUserEntity
 import mx.edu.itm.link.pokedex.core.util.toUser
-import mx.edu.itm.link.pokedex.user.domain.repository.LocalUserRepository
+import mx.edu.itm.link.pokedex.user.domain.repository.local.LocalUserRepository
 
 class LocalUserRepositoryImp: LocalUserRepository {
 

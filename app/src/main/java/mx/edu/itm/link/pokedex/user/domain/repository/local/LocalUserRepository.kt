@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.user.domain.repository
+package mx.edu.itm.link.pokedex.user.domain.repository.local
 
 import mx.edu.itm.link.pokedex.core.domain.model.User
 

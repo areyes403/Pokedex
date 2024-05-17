@@ -9,14 +9,19 @@ import mx.edu.itm.link.pokedex.core.data.remote.RetrofitModule
 import mx.edu.itm.link.pokedex.core.data.room.DatabaseManager
 import mx.edu.itm.link.pokedex.pokemon.data.remote.PokemonApiService
 import mx.edu.itm.link.pokedex.pokemon.data.repository.PokemonRepositoryImp
+import mx.edu.itm.link.pokedex.user.data.remote.UserRepositoryImp
 
 open class MyApplication: Application(){
     lateinit var authRepo:AuthRepositoryImp
     lateinit var pokemonRepo:PokemonRepositoryImp
+    lateinit var userRepo:UserRepositoryImp
     override fun onCreate() {
+        val auth=Firebase.auth
+        val firestore=Firebase.firestore
         DatabaseManager.instance.initializeDb(applicationContext)
-        authRepo= AuthRepositoryImp(Firebase.auth,Firebase.firestore)
+        authRepo= AuthRepositoryImp(auth,firestore)
         pokemonRepo= PokemonRepositoryImp(RetrofitModule.apiPokemon)
+        userRepo=UserRepositoryImp(firestore)
         super.onCreate()
     }
 
