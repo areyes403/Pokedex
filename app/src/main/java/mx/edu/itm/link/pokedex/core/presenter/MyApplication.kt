@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.core
+package mx.edu.itm.link.pokedex.core.presenter
 
 import android.app.Application
 import com.google.firebase.Firebase

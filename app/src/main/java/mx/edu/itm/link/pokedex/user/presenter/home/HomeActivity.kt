@@ -1,4 +1,4 @@
-package mx.edu.itm.link.pokedex.core.presenter
+package mx.edu.itm.link.pokedex.user.presenter.home
 
 import android.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity

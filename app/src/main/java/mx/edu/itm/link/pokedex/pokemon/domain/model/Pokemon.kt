@@ -1,6 +1,6 @@
 package mx.edu.itm.link.pokedex.pokemon.domain.model
 
-import mx.edu.itm.link.pokedex.core.data.room.PokemonEntity
+import mx.edu.itm.link.pokedex.pokemon.data.local.PokemonEntity
 
 class Pokemon(
     idPokemon:Int,

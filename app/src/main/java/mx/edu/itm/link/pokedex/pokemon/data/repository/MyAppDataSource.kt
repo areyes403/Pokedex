@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import mx.edu.itm.link.pokedex.core.data.room.PokemonDao
-import mx.edu.itm.link.pokedex.core.data.room.toPokemon
+import mx.edu.itm.link.pokedex.pokemon.data.local.PokemonDao
+import mx.edu.itm.link.pokedex.core.util.toPokemon
 import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.pokemon.domain.model.toEntity
 

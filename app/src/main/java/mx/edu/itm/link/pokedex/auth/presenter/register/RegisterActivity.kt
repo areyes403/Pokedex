@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import mx.edu.itm.link.pokedex.auth.domain.model.Credentials
 import mx.edu.itm.link.pokedex.auth.domain.usecase.SignUp
-import mx.edu.itm.link.pokedex.auth.presenter.login.viewmodel.LoginViewModel
 import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModel
 import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModelFactory
-import mx.edu.itm.link.pokedex.core.MyApplication
+import mx.edu.itm.link.pokedex.core.presenter.MyApplication
 import mx.edu.itm.link.pokedex.core.domain.model.User
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.util.snackBar

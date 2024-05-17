@@ -1,6 +1,7 @@
-package mx.edu.itm.link.pokedex.core.data.room
+package mx.edu.itm.link.pokedex.pokemon.data.local
 
 import androidx.room.*
+import mx.edu.itm.link.pokedex.core.util.RoomConstants.TABLE_POKEMONS
 
 @Dao
 interface PokemonDao {
@@ -14,7 +15,7 @@ interface PokemonDao {
     @Query("SELECT*FROM $TABLE_POKEMONS")
     fun getPokemonsFromDatabase():List<PokemonEntity>
 
-    @Query("SELECT*FROM $TABLE_POKEMONS WHERE idPokemon= :query")
+    @Query("SELECT*FROM $TABLE_POKEMONS WHERE id= :query")
     fun getPokemonByid(query:String): PokemonEntity
 
 

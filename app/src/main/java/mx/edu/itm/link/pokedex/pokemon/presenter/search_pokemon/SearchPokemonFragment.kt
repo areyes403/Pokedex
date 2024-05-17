@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import mx.edu.itm.link.pokedex.core.MyApplication
+import mx.edu.itm.link.pokedex.core.presenter.MyApplication
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.util.show
 import mx.edu.itm.link.pokedex.databinding.FragmentSearchBinding

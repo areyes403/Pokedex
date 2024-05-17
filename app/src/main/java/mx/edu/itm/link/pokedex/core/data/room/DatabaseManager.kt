@@ -2,6 +2,7 @@ package mx.edu.itm.link.pokedex.core.data.room
 
 import android.content.Context
 import androidx.room.Room
+import mx.edu.itm.link.pokedex.core.util.RoomConstants.DATABASE_NAME
 
 class DatabaseManager {
     lateinit var database: AppDatabase
@@ -16,6 +17,7 @@ class DatabaseManager {
 
     private fun createDb(context: Context){
         database= Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration().build()
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

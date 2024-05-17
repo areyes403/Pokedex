@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 import mx.edu.itm.link.pokedex.auth.domain.model.Credentials
 import mx.edu.itm.link.pokedex.core.domain.model.User
@@ -34,9 +35,13 @@ class AuthRepositoryImp (
         ResponseStatus.Error(e.localizedMessage)
     }
 
-    override suspend fun signIn(credential: Credentials): ResponseStatus<Unit> = try {
-        auth.signInWithEmailAndPassword(credential.email,credential.password).await()
-        ResponseStatus.Success(Unit)
+    override suspend fun signIn(credential: Credentials): ResponseStatus<User> = try {
+        val uid = auth.signInWithEmailAndPassword(credential.email,credential.password)
+            .await()
+            .user?.uid!!
+
+        val user= firestore.collection(FirestoreCollections.USER).document(uid).get().await().toObject<User>()
+        ResponseStatus.Success(user!!)
 
     }catch (e:Exception){
         ResponseStatus.Error(e.localizedMessage)
