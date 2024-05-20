@@ -17,6 +17,10 @@ fun PokemonDto.toPokemon():Pokemon = Pokemon(
     weight = weight.toString()
 )
 
+fun Pokemon.toEntity()= PokemonEntity(
+    idPokemon,idUser,namepokemon,hp,attack,defense,speed,weight
+)
+
 fun PokemonEntity.toPokemon()= Pokemon(
     id,idUser,name,hp,attack,defense,speed,weight
 )

@@ -6,31 +6,50 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
+import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
+import mx.edu.itm.link.pokedex.core.presenter.MyApplication
 import mx.edu.itm.link.pokedex.databinding.FragmentPokemonBinding
+import mx.edu.itm.link.pokedex.pokemon.domain.usecase.FindPokemonByName
+import mx.edu.itm.link.pokedex.pokemon.presenter.pokemon.viewmodel.PokemonViewModel
+import mx.edu.itm.link.pokedex.pokemon.presenter.pokemon.viewmodel.PokemonViewModelFactory
 import org.json.JSONObject
 
 
 class PokemonFragment : Fragment() {
 
-    private lateinit var queue: RequestQueue
-    private lateinit var binding:FragmentPokemonBinding
+    //private lateinit var queue: RequestQueue
+    private var _binding:FragmentPokemonBinding?=null
+    private lateinit var viewModel:PokemonViewModel
+    private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        binding= FragmentPokemonBinding.inflate(layoutInflater)
-        val view= binding.root
-        return view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding= FragmentPokemonBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        queue= Volley.newRequestQueue(activity)
+        //queue= Volley.newRequestQueue(activity)
         val id=arguments?.getString("idFragmentPokemon").toString()
+
+        val repo=(requireActivity().application as MyApplication).pokemonRepo
+
+        val findPokemonUseCase=FindPokemonByName(repo)
+
+        val viewModelFactory=PokemonViewModelFactory(findPokemonUseCase)
+        viewModel=ViewModelProvider(this,viewModelFactory)[PokemonViewModel::class.java]
+
+        viewModel.findPokemon(name = id)
+
+        observers()
+
+        /*
         print("----------------$id")
 
         val urli="https://pbs.twimg.com/profile_images/1178942318981701634/d5qM22Ft_400x400.jpg"
@@ -50,12 +69,31 @@ class PokemonFragment : Fragment() {
         queue.add(jsonReques)
 
 
+
+         */
     }
 
-    override fun onStop(){
-        super.onStop()
-        queue.cancelAll("stopped")
+    private fun observers() {
+        viewModel.pokemon.observe(requireActivity()){response->
+            when(response){
+                is ResponseStatus.Loading->{
+
+                }
+                is ResponseStatus.Success->{
+                    binding.apply {
+                        txtNameFragmentPokemon.text=response.data.namepokemon
+                    }
+                }
+                is ResponseStatus.Error->{
+
+                }
+            }
+        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null
+    }
 
 }

@@ -37,7 +37,7 @@ class LoginViewModel(
     }
 
     fun saveUser(user:User)=viewModelScope.launch {
-        saveLocalUserUseCase.invoke(data = user)
+        saveLocalUserUseCase(data = user)
     }
 
 }

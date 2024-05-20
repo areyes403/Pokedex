@@ -1,7 +1,5 @@
 package mx.edu.itm.link.pokedex.pokemon.domain.model
 
-import mx.edu.itm.link.pokedex.pokemon.data.local.PokemonEntity
-
 class Pokemon(
     idPokemon:Int,
     idUser:String,
@@ -12,7 +10,7 @@ class Pokemon(
     speed:String,
     weight:String){
     val idPokemon=idPokemon
-    val idUser=idUser
+    var idUser=idUser
     val namepokemon=namepokemon
     val hp=hp
     val attack=attack
@@ -22,7 +20,5 @@ class Pokemon(
 
 }
 
-fun Pokemon.toEntity()= PokemonEntity(
-    idPokemon,idUser,namepokemon,hp,attack,defense,speed,weight
-)
+
 

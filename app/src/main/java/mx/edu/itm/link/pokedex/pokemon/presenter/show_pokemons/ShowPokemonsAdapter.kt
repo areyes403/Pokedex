@@ -6,21 +6,33 @@ import androidx.recyclerview.widget.RecyclerView
 import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.databinding.ItemPokemonBinding
 
-class ShowPokemonsAdapter(private val pokemons:List<Pokemon>): RecyclerView.Adapter<ShowPokemonsAdapter.ShowPokemonsHolder>(){
+class ShowPokemonsAdapter(
+    private val data:List<Pokemon>
+): RecyclerView.Adapter<ShowPokemonsAdapter.ViewHolder>(){
 
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowPokemonsHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding= ItemPokemonBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ShowPokemonsHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ShowPokemonsHolder, position: Int) {
-        holder.render(pokemons[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        with(holder){
+            binding.txtName.text=data[position].namepokemon
+            //Glide.with(context).load(url).into(binding.imgImagenPokemon)
+            binding.root.setOnClickListener {
+                //callBack.onClick(pokemon)
+            }
+            binding.btnEliminarPokemonItem.setOnClickListener {
+                //callBack.delete(pokemon)
+            }
+        }
     }
 
-    override fun getItemCount(): Int=pokemons.size
+    override fun getItemCount(): Int=data.size
 
+    inner class ViewHolder(val binding:ItemPokemonBinding):RecyclerView.ViewHolder(binding.root)
+
+    /*
     class ShowPokemonsHolder(val binding:ItemPokemonBinding):RecyclerView.ViewHolder(binding.root){
         val url="https://pbs.twimg.com/profile_images/1178942318981701634/d5qM22Ft_400x400.jpg"
         fun render(pokemon: Pokemon){
@@ -38,6 +50,8 @@ class ShowPokemonsAdapter(private val pokemons:List<Pokemon>): RecyclerView.Adap
 
         }
     }
+
+     */
 
 
 }

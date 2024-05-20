@@ -13,7 +13,6 @@ import mx.edu.itm.link.pokedex.user.data.local.LocalUserEntity
     version = DATABASE_VERSION,
     exportSchema = false
 )
-
 abstract class AppDatabase : RoomDatabase(){
 
     abstract fun pokemonDao(): PokemonDao
