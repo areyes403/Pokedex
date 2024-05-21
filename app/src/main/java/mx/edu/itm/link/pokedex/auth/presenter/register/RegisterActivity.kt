@@ -28,14 +28,14 @@ class RegisterActivity : AppCompatActivity() {
         val view=binding.root
         setContentView(view)
 
-        val repo=(application as MyApplication).authRepo
+        val authRepo=(application as MyApplication).authRepo
+        val firestoreRepo=(application as MyApplication).firestoreRepo
 
-        val registerUseCase=SignUp(repo)
+        val registerUseCase=SignUp(authRepo, firestoreRepo)
 
         val viewmodelFactory=RegisterViewModelFactory(registerUseCase)
 
         viewModel= ViewModelProvider(this,viewmodelFactory)[RegisterViewModel::class.java]
-
 
         observers()
     }
@@ -47,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
 
                 }
                 is ResponseStatus.Success->{
-                    toast(msg = response.data)
+                    toast(msg = "Registrado con exito")
                     this.finish()
                 }
                 is ResponseStatus.Error->{

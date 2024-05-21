@@ -32,17 +32,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val repository=(application as MyApplication).authRepo
-
-        val signInUseCase=SignIn(repository)
-
+        //repositories
+        val authRep=(application as MyApplication).authRepo
+        val firestoreRep=(application as MyApplication).firestoreRepo
         val localRepo=LocalUserRepositoryImp()
 
+        //usecases
+        val signInUseCase=SignIn(authRep,firestoreRep)
         val localUserUseCase=GetLocalUser(localRepo)
 
-        val saveUserUseCase=SaveLocalUser(localRepo)
-
-        val loginViewModelFactory=LoginViewModelFactory(signInUseCase,localUserUseCase,saveUserUseCase)
+        val loginViewModelFactory=LoginViewModelFactory(signInUseCase,localUserUseCase)
 
         viewModel= ViewModelProvider(this,loginViewModelFactory)[LoginViewModel::class.java]
 
@@ -75,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 is ResponseStatus.Success->{
-                    viewModel.saveUser(user = response.data)
                     val intent=Intent(this, HomeActivity::class.java)
                     startActivity(intent)
                 }
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         val pass=binding.tfPassword.editText?.text.toString()
 
         if(!TextUtils.isEmpty(user)&&!TextUtils.isEmpty(pass)){
-            viewModel.login(data =
+            viewModel.login(credential =
                 Credentials(
                     email = user,
                     password = pass

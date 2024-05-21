@@ -14,8 +14,8 @@ import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 class RegisterViewModel(
     private val signUpUseCase:SignUp
 ):ViewModel() {
-    private val _register=MutableLiveData<ResponseStatus<String>>()
-    val register:LiveData<ResponseStatus<String>> get() = _register
+    private val _register=MutableLiveData<ResponseStatus<Unit>>()
+    val register:LiveData<ResponseStatus<Unit>> get() = _register
 
     fun register(credentialData:Credentials,userData: User) = viewModelScope.launch(Dispatchers.IO){
         _register.postValue(ResponseStatus.Loading)

@@ -14,30 +14,19 @@ import mx.edu.itm.link.pokedex.user.domain.usecase.GetLocalUser
 import mx.edu.itm.link.pokedex.user.domain.usecase.SaveLocalUser
 
 class LoginViewModel(
-    private val singInUseCase:SignIn,
-    private val getLocalUser:GetLocalUser,
-    private val saveLocalUserUseCase:SaveLocalUser
+    private val signInUseCase:SignIn,
+    private val getLocalUserUseCse:GetLocalUser
 ):ViewModel() {
-    private val _login=MutableLiveData<ResponseStatus<User>>()
-    val login:LiveData<ResponseStatus<User>> get() = _login
+    private val _login=MutableLiveData<ResponseStatus<Unit>>()
+    val login:LiveData<ResponseStatus<Unit>> get() = _login
 
     private val _user=MutableLiveData<User?>()
     val user:LiveData<User?> get() = _user
 
-    init {
-        getUser()
+
+    fun login(credential:Credentials)=viewModelScope.launch(Dispatchers.IO){
+        _login.postValue(signInUseCase(data = credential)!!)
     }
 
-    private fun getUser() = viewModelScope.launch{
-        _user.postValue(getLocalUser.invoke())
-    }
-
-    fun login(data:Credentials)=viewModelScope.launch(Dispatchers.IO){
-        _login.postValue(singInUseCase.invoke(cred = data))
-    }
-
-    fun saveUser(user:User)=viewModelScope.launch {
-        saveLocalUserUseCase(data = user)
-    }
 
 }

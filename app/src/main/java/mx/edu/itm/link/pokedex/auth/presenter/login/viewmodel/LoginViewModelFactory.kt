@@ -8,13 +8,12 @@ import mx.edu.itm.link.pokedex.user.domain.usecase.SaveLocalUser
 
 class LoginViewModelFactory (
     private val signInUseCase:SignIn,
-    private val getLocalUserUseCse:GetLocalUser,
-    private val saveLocalUser:SaveLocalUser
+    private val getLocalUserUseCse:GetLocalUser
 ): ViewModelProvider.Factory{
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return LoginViewModel(signInUseCase,getLocalUserUseCse,saveLocalUser) as T
+            return LoginViewModel(signInUseCase,getLocalUserUseCse) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
