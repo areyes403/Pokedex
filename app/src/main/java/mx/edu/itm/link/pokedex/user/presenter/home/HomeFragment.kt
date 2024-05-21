@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel:HomeViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
         binding= FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -1,54 +1,60 @@
 package mx.edu.itm.link.pokedex.auth.presenter.register
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import mx.edu.itm.link.pokedex.auth.domain.model.Credentials
 import mx.edu.itm.link.pokedex.auth.domain.usecase.SignUp
 import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModel
 import mx.edu.itm.link.pokedex.auth.presenter.register.viewmodel.RegisterViewModelFactory
-import mx.edu.itm.link.pokedex.core.presenter.MyApplication
-import mx.edu.itm.link.pokedex.core.domain.model.User
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
+import mx.edu.itm.link.pokedex.core.domain.model.User
+import mx.edu.itm.link.pokedex.core.presenter.MyApplication
 import mx.edu.itm.link.pokedex.core.util.snackBar
 import mx.edu.itm.link.pokedex.core.util.toast
-import mx.edu.itm.link.pokedex.databinding.ActivityRegisterBinding
+import mx.edu.itm.link.pokedex.databinding.FragmentRegisterBinding
 
-class RegisterActivity : AppCompatActivity() {
+class RegisterFragment: Fragment() {
 
-    private lateinit var binding: ActivityRegisterBinding
-
+    private var _binding:FragmentRegisterBinding?=null
+    private val binding get() = _binding!!
     private lateinit var viewModel: RegisterViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding= ActivityRegisterBinding.inflate(layoutInflater)
-        val view=binding.root
-        setContentView(view)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding= FragmentRegisterBinding.inflate(inflater,container,false)
+        return binding.root
+    }
 
-        val authRepo=(application as MyApplication).authRepo
-        val firestoreRepo=(application as MyApplication).firestoreRepo
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val registerUseCase=SignUp(authRepo, firestoreRepo)
+        val authRepo=(requireActivity().application as MyApplication).authRepo
+        val firestoreRepo=(requireActivity().application as MyApplication).firestoreRepo
 
-        val viewmodelFactory=RegisterViewModelFactory(registerUseCase)
+        val registerUseCase= SignUp(authRepo, firestoreRepo)
+
+        val viewmodelFactory= RegisterViewModelFactory(registerUseCase)
 
         viewModel= ViewModelProvider(this,viewmodelFactory)[RegisterViewModel::class.java]
 
         observers()
+
     }
 
     private fun observers() {
-        viewModel.register.observe(this){response->
+        viewModel.register.observe(requireActivity()){response->
             when(response){
                 is ResponseStatus.Loading->{
 
                 }
                 is ResponseStatus.Success->{
                     toast(msg = "Registrado con exito")
-                    this.finish()
+                    findNavController().popBackStack()
                 }
                 is ResponseStatus.Error->{
                     val view:View=binding.root
@@ -71,7 +77,7 @@ class RegisterActivity : AppCompatActivity() {
         val rnds = (0..10).random()
 
         if(!TextUtils.isEmpty(name) && !TextUtils.isEmpty(lastname) &&!TextUtils.isEmpty(email) &&!TextUtils.isEmpty(pass)){
-            val cred=Credentials(
+            val cred= Credentials(
                 email = email,
                 password = pass
             )
@@ -84,4 +90,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
     }
+
+
+
 }
