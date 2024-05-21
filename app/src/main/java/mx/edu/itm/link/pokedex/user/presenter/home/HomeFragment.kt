@@ -8,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.findNavController
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import mx.edu.itm.link.pokedex.R
+import mx.edu.itm.link.pokedex.auth.domain.usecase.LogOut
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.presenter.MyApplication
 import mx.edu.itm.link.pokedex.core.util.snackBar
 import mx.edu.itm.link.pokedex.databinding.FragmentHomeBinding
+import mx.edu.itm.link.pokedex.pokemon.data.local.LocalPokemonRepositoryImp
 import mx.edu.itm.link.pokedex.user.data.local.LocalUserRepositoryImp
 import mx.edu.itm.link.pokedex.user.domain.usecase.GetLocalUser
 import mx.edu.itm.link.pokedex.user.domain.usecase.ObserveUser
@@ -41,8 +44,9 @@ class HomeFragment : Fragment() {
 
         val observeuser=ObserveUser(userRepo)
         val getLocalUserCase=GetLocalUser(localRepo)
+        val logOut=LogOut(localRepo,LocalPokemonRepositoryImp())
 
-        val viewModelFactory=HomeViewModelFactory(getLocalUserCase,observeuser)
+        val viewModelFactory=HomeViewModelFactory(getLocalUserCase,observeuser,logOut)
 
         viewModel=ViewModelProvider(this,viewModelFactory)[HomeViewModel::class.java]
 
@@ -59,7 +63,9 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeFragment_to_editProfileFragment)
             }
             btnLogOut.setOnClickListener {
-
+                viewModel.logOut()
+                val newGraph: NavGraph = findNavController().navInflater.inflate(R.navigation.nav_auth)
+                findNavController().graph=newGraph
             }
         }
 

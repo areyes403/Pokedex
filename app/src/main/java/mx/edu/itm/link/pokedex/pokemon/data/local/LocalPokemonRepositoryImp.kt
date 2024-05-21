@@ -36,4 +36,8 @@ class LocalPokemonRepositoryImp: LocalPokemonRepository  {
         }
     }
 
+    override suspend fun deletePokemons() {
+        pokemonDao.deleteAll()
+    }
+
 }

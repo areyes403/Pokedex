@@ -10,4 +10,5 @@ interface LocalPokemonRepository {
     suspend fun getPokemonById(id:Int):PokemonEntity
     suspend fun getPokemonsByUserId(userId:String):Flow<List<Pokemon>>
     suspend fun deletePokemon(pokemon:Pokemon)
+    suspend fun deletePokemons()
 }

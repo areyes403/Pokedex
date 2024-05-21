@@ -18,4 +18,8 @@ class LocalUserRepositoryImp: LocalUserRepository {
         localUser.insertUser(user = user.toLocalUserEntity())
     }
 
+    override suspend fun deleteUser() {
+        localUser.deleteAll()
+    }
+
 }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import mx.edu.itm.link.pokedex.auth.domain.usecase.LogOut
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
 import mx.edu.itm.link.pokedex.core.domain.model.User
 import mx.edu.itm.link.pokedex.user.domain.usecase.GetLocalUser
@@ -15,7 +16,8 @@ import mx.edu.itm.link.pokedex.user.domain.usecase.ObserveUser
 
 class HomeViewModel(
     private val getLocalUserUseCase:GetLocalUser,
-    private val observeUserUseCase:ObserveUser
+    private val observeUserUseCase:ObserveUser,
+    private val logOutUseCase:LogOut
 ):ViewModel() {
 
     private val _user=MutableStateFlow<ResponseStatus<User>>(ResponseStatus.Loading)
@@ -29,6 +31,12 @@ class HomeViewModel(
         val user=getLocalUserUseCase.invoke()!!
         observeUserUseCase.invoke(user.id).collect{
             _user.value=it
+        }
+    }
+
+    fun logOut(){
+        viewModelScope.launch {
+            logOutUseCase()
         }
     }
 }

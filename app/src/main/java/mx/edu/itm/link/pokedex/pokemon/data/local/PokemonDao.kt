@@ -16,4 +16,7 @@ interface PokemonDao {
     suspend fun getPokemonByid(id:Int): PokemonEntity
     @Query("SELECT*FROM $TABLE_POKEMONS WHERE idUser= :userid")
     fun getPokemonsFromUser(userid: String):Flow<List<PokemonEntity>>
+
+    @Query("DELETE FROM $TABLE_POKEMONS")
+    suspend fun deleteAll()
 }

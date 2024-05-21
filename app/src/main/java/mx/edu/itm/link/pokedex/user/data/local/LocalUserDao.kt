@@ -15,4 +15,6 @@ interface LocalUserDao {
     @Query("SELECT * FROM $TABLE_LOCAL_USER")
     suspend fun getUser():List<LocalUserEntity>
 
+    @Query("DELETE FROM $TABLE_LOCAL_USER")
+    suspend fun deleteAll()
 }
