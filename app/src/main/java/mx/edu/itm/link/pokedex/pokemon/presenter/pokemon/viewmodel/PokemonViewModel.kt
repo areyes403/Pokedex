@@ -19,6 +19,6 @@ class PokemonViewModel(
 
     fun findPokemon(name:String)=viewModelScope.launch(Dispatchers.IO){
         _pokemon.postValue(ResponseStatus.Loading)
-        _pokemon.postValue(findPokemonByNameUseCase(name))
+        _pokemon.postValue(findPokemonByNameUseCase(name)!!)
     }
 }

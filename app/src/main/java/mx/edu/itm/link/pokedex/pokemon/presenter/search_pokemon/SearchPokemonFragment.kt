@@ -50,11 +50,6 @@ class SearchPokemonFragment : Fragment() {
             viewModel.search(binding.etxtNamePokemon.text.toString())
         }
 
-        binding.btnFavorite.setOnClickListener {
-            viewModel.savePokemon()
-            findNavController().popBackStack()
-        }
-
         binding.btnbackSearch.setOnClickListener {
 
         }
@@ -67,13 +62,21 @@ class SearchPokemonFragment : Fragment() {
 
                 }
                 is ResponseStatus.Success->{
-                    binding.etxtNamePokemon.text.clear()
-                    binding.btnFavorite.show()
-                    binding.cardView.show()
+                    binding.apply {
+                        etxtNamePokemon.text.clear()
+                        cardView.show()
+                        txtName.text=response.data.name
+                        txtAtaque.text="Atack: ${response.data.attack}"
+                        txtDefensa.text="Def: ${response.data.defense}"
+                        txtHP.text="HP: ${response.data.hp}"
+                        txtVelocidad.text="Velocidad: ${response.data.speed}"
 
-
-                    binding.txtName.text=response.data.namepokemon
-                   }
+                        btnFavorite.setOnClickListener {
+                            viewModel.savePokemon()
+                            findNavController().popBackStack()
+                        }
+                    }
+                }
                 is ResponseStatus.Error->{
                     Log.e("pokemonRequest",response.error.toString())
                 }

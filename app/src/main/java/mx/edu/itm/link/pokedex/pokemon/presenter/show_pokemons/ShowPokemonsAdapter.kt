@@ -7,7 +7,8 @@ import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.databinding.ItemPokemonBinding
 
 class ShowPokemonsAdapter(
-    private val data:List<Pokemon>
+    private val data:List<Pokemon>,
+    val onClick:(Pokemon) -> Unit
 ): RecyclerView.Adapter<ShowPokemonsAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,10 +18,11 @@ class ShowPokemonsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder){
-            binding.txtName.text=data[position].namepokemon
-            //Glide.with(context).load(url).into(binding.imgImagenPokemon)
+            binding.txtName.text="Nombre: ${data[position].name}"
+            binding.txtAtaque.text="Ataque: ${data[position].attack}"
+            binding.txtDefensa.text="Defensa: ${data[position].defense}"
             binding.root.setOnClickListener {
-                //callBack.onClick(pokemon)
+                onClick.invoke(data[position])
             }
             binding.btnEliminarPokemonItem.setOnClickListener {
                 //callBack.delete(pokemon)

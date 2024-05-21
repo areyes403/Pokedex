@@ -7,8 +7,8 @@ import com.google.firebase.firestore.firestore
 import mx.edu.itm.link.pokedex.auth.data.remote.AuthRepositoryImp
 import mx.edu.itm.link.pokedex.core.data.remote.RetrofitModule
 import mx.edu.itm.link.pokedex.core.data.room.DatabaseManager
-import mx.edu.itm.link.pokedex.pokemon.data.remote.PokemonRepositoryImp
-import mx.edu.itm.link.pokedex.user.data.remote.UserRepositoryImp
+import mx.edu.itm.link.pokedex.pokemon.data.repository.PokemonRepositoryImp
+import mx.edu.itm.link.pokedex.user.data.repository.UserRepositoryImp
 
 open class MyApplication: Application(){
     lateinit var authRepo:AuthRepositoryImp

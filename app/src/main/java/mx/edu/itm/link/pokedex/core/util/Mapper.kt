@@ -7,18 +7,18 @@ import mx.edu.itm.link.pokedex.pokemon.domain.model.Pokemon
 import mx.edu.itm.link.pokedex.user.data.local.LocalUserEntity
 
 fun PokemonDto.toPokemon():Pokemon = Pokemon(
-    idPokemon = 0,
-    namepokemon = name,
+    idPokemon = id,
+    name = name,
     idUser = "",
-    hp = "",
-    attack = "",
-    defense = "",
-    speed = "",
-    weight = weight.toString()
+    hp = stats[0].base_stat,
+    attack = stats[1].base_stat,
+    defense = stats[2].base_stat,
+    speed = stats[4].base_stat,
+    weight = weight
 )
 
 fun Pokemon.toEntity()= PokemonEntity(
-    idPokemon,idUser,namepokemon,hp,attack,defense,speed,weight
+    idPokemon,idUser,name,hp,attack,defense,speed,weight
 )
 
 fun PokemonEntity.toPokemon()= Pokemon(

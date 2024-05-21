@@ -9,7 +9,7 @@ class PokemonViewModelFactory(
     private val findPokemonByNameUseCase: FindPokemonByName
 ):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(PokemonViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return PokemonViewModel(findPokemonByNameUseCase = findPokemonByNameUseCase) as T
         }

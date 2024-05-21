@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import mx.edu.itm.link.pokedex.R
 import mx.edu.itm.link.pokedex.databinding.FragmentShowPokemonsBinding
 import mx.edu.itm.link.pokedex.pokemon.data.local.LocalPokemonRepositoryImp
 import mx.edu.itm.link.pokedex.pokemon.domain.usecase.GetLocalPokemonsByUserId
@@ -70,7 +73,10 @@ class ShowPokemonsFragment : Fragment() {
     private fun observers() {
         viewModel.pokemons.onEach {
             if (it.isNotEmpty()){
-                val adapter=ShowPokemonsAdapter(data = it)
+                val adapter=ShowPokemonsAdapter(data = it){pokemon->
+                    val args= bundleOf("namePokemon" to pokemon.name)
+                    findNavController().navigate(R.id.action_showPokemonsFragment_to_pokemonFragment,args)
+                }
                 binding.rvPokemons.layoutManager=LinearLayoutManager(requireContext())
                 binding.rvPokemons.adapter=adapter
             }
