@@ -1,6 +1,7 @@
 package mx.edu.itm.link.pokedex.auth.data.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
 import mx.edu.itm.link.pokedex.auth.domain.repository.FirestoreRepository
 import mx.edu.itm.link.pokedex.core.domain.model.ResponseStatus
@@ -21,7 +22,15 @@ class FirestoreRepositoyImp(
         ResponseStatus.Error(e.localizedMessage)
     }
 
-    override suspend fun getUser(uid: String): ResponseStatus<User> {
-        TODO("Not yet implemented")
+    override suspend fun getUser(uid: String): ResponseStatus<User> = try {
+        val user=firestore.collection(FirestoreCollections.USER)
+            .document(uid)
+            .get()
+            .await()
+            .toObject<User>()
+
+        ResponseStatus.Success(user!!)
+    }catch (e:Exception){
+        ResponseStatus.Error(e.localizedMessage)
     }
 }

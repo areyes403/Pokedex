@@ -2,6 +2,7 @@ package mx.edu.itm.link.pokedex.auth.presenter.login
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +60,7 @@ class LoginFragment:Fragment() {
         }
 
         binding.btnRegister.setOnClickListener {
-            //startActivity(Intent(this, RegisterActivity::class.java))
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
         val link="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png"
 
@@ -75,10 +76,10 @@ class LoginFragment:Fragment() {
         viewModel.login.observe(requireActivity()){response->
             when(response){
                 is ResponseStatus.Loading->{
-
+                    Log.i("loginStatus","Success")
                 }
                 is ResponseStatus.Success->{
-                    val newGraph: NavGraph = findNavController().navInflater.inflate(R.navigation.nav_auth)
+                    val newGraph: NavGraph = findNavController().navInflater.inflate(R.navigation.nav_home)
                     findNavController().graph=newGraph
                 }
                 is ResponseStatus.Error->{

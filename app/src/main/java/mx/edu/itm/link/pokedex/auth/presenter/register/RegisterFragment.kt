@@ -61,7 +61,6 @@ class RegisterFragment: Fragment() {
                     snackBar(response.error,view)
                 }
             }
-
         }
     }
 
